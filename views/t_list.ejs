@@ -1,26 +1,24 @@
 <%- include("layout") %>
 
 <!-- Main Content Column (70%) -->
-<div class="col-10 overflow-y: auto" id="main-content">
-  <h2 class="mb-4">Ticket Details</h2>
-
-  <div class="container" style="height: 100vh">
-    <%for(let ticket of tickets){%>
-    <div class="card shadow-lg mb-4">
-      <div class="card-header bg-primary text-white">
+<div class="col-10 overflow-auto" id="main-content">
+  <div class="container py-4">
+    <h2 class="mb-4">Ticket Details</h2>
+    <% for (let ticket of tickets) { %>
+    <div class="card shadow-sm mb-4">
+      <div
+        class="card-header d-flex justify-content-between align-items-center bg-light"
+      >
         <h5 class="card-title mb-0">#<%= ticket.id %> - <%= ticket.title %></h5>
+        <span class="badge bg-info text-dark"><%= ticket.priority %></span>
       </div>
       <div class="card-body">
         <p class="card-text"><%= ticket.description %></p>
         <ul class="list-group list-group-flush mb-3">
-          <li class="list-group-item border-bottom-0">
-            <strong>Priority:</strong>
-            <span class="badge bg-danger"><%= ticket.priority %></span>
-          </li>
-          <li class="list-group-item border-bottom-0">
+          <li class="list-group-item">
             <strong>Category:</strong> <%= ticket.category %>
           </li>
-          <li class="list-group-item border-bottom-0">
+          <li class="list-group-item">
             <strong>Assigned To:</strong> <%= ticket.assignedto %>
           </li>
           <li class="list-group-item">
@@ -28,29 +26,26 @@
           </li>
         </ul>
         <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
+          <div>
             <a
               href="/update/<%= ticket.id %>"
-              class="btn btn-sm btn-outline-primary"
+              class="btn btn-outline-primary btn-sm"
               >Update</a
             >
             <a
               href="/view/<%= ticket.id %>"
-              class="btn btn-sm btn-outline-secondary"
+              class="btn btn-outline-secondary btn-sm"
               >View More</a
             >
           </div>
-          <% if(user.role==="IT Support"){ %>
-          <a href="/delete/<%=ticket.id  %>"
-            ><button class="btn btn-sm btn-outline-danger">Delete</button></a
-          >
+          <% if (user.role === "IT Support") { %>
+          <a href="/delete/<%= ticket.id %>">
+            <button class="btn btn-outline-danger btn-sm">Delete</button>
+          </a>
           <% } %>
         </div>
       </div>
     </div>
-
-    <%} %>
-
-    <!-- Repeat the above card structure for additional tickets -->
+    <% } %>
   </div>
 </div>
