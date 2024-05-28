@@ -131,7 +131,7 @@ app.get("/register", async (req, res) => {
   res.render("register.ejs");
 });
 
-//User authentication
+//User authentication / Register a new user
 app.post("/register", async (req, res) => {
   const { email, password, role, name } = req.body;
   try {
@@ -161,7 +161,7 @@ app.post("/register", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-}); // Register a new user
+});
 
 //Creating new ticket
 app.post("/create", async (req, res) => {
@@ -257,9 +257,7 @@ app.post(
   })
 );
 
-///passport strategy
-
-// Passport middleware
+// Passport middleware passport strategy
 passport.use(
   new Strategy(
     {
