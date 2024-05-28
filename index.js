@@ -47,6 +47,18 @@ const db = new pg.Client({
 });
 db.connect();
 
+///Middleware to authorization
+
+function authorize(role) {
+  return function (req, res, next) {
+    if (req.isAuthenticated() && req.user.role === role) {
+      return next();
+    } else {
+      res.status(403).send("Forbidden");
+    }
+  };
+}
+
 // Define routes for tickets
 app.get("/", async (req, res) => {
   if (req.isAuthenticated()) {
@@ -193,13 +205,13 @@ app.get("/update/:id", async (req, res) => {
 });
 
 //updating ticket
-app.put("/update/:id", async (req, res) => {
+app.put("/update/:id", authorize("IT Support"), async (req, res) => {
   const id = req.params.id;
   await db.query("UPDATE tickets SET ");
 });
 
 // Delete ticket
-app.get("/delete/:id", async (req, res) => {
+app.get("/delete/:id", authorize("IT Support"), async (req, res) => {
   const id = req.params.id;
   try {
     await db.query("DELETE FROM tickets WHERE id=$1", [id]);
@@ -228,7 +240,7 @@ app.post("/comment/:id", async (req, res) => {
   }
 });
 //Delete ticket_comment
-app.get("/delete_comment/:id", async (req, res) => {
+app.get("/delete_comment/:id", authorize("IT Support"), async (req, res) => {
   const id = req.params.id;
   const result = await db.query("SELECT * FROM activities WHERE  id=$1", [id]);
   await db.query("DELETE FROM activities  WHERE id=$1", [id]);
@@ -306,18 +318,6 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser((user, cb) => {
   cb(null, user);
 });
-
-///Middleware to authorization
-
-function authorize(role) {
-  return function (req, res, next) {
-    if (req.isAuthenticated() && req.user.role === role) {
-      return next();
-    } else {
-      res.status(403).send("Forbidden");
-    }
-  };
-}
 
 // Start the server
 app.listen(port, () => {
