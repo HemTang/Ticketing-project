@@ -8,13 +8,11 @@
     </div>
     <!-- Main Content Column (70%) -->
     <div class="col-10" id="main-content">
-      <main class="container">
-        <H1>View Ticket</H1>
-        <div class="container mt-5">
-          <div class="card shadow-lg">
-            <div
-              class="card-header bg-primary text-white d-flex justify-content-between align-items-center"
-            >
+      <main class="container py-4">
+        <h1>View Ticket</h1>
+        <div class="container mt-4">
+          <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
               <h2 class="mb-0">
                 Ticket #<%= ticket.id %> - <%= ticket.title %>
               </h2>
@@ -24,7 +22,7 @@
             </div>
             <div class="card-body">
               <p class="card-text"><%= ticket.description %></p>
-              <ul class="list-group list-group-flush mb-3">
+              <ul class="list-group list-group-flush">
                 <li
                   class="list-group-item d-flex justify-content-between align-items-center"
                 >
@@ -44,47 +42,37 @@
                   <span><%= ticket.incidentfor %></span>
                 </li>
               </ul>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a
-                    href="/update/<%= ticket.id %>"
-                    class="btn btn-sm btn-outline-primary"
-                    >Update</a
-                  >
-                  <a
-                    href="/view/<%= ticket.id%>"
-                    class="btn btn-sm btn-outline-secondary"
-                    >View More</a
-                  >
-                </div>
-
-                <% if(user.role==="IT Support"){ %>
-                <button class="btn btn-sm btn-outline-danger">
-                  Close Ticket
-                </button>
-                <% } %>
+            </div>
+            <div
+              class="card-footer d-flex justify-content-between align-items-center"
+            >
+              <div class="btn-group">
+                <a
+                  href="/update/<%= ticket.id %>"
+                  class="btn btn-sm btn-outline-primary"
+                  >Update</a
+                >
+                <a
+                  href="/view/<%= ticket.id %>"
+                  class="btn btn-sm btn-outline-secondary"
+                  >View More</a
+                >
               </div>
+              <% if (user.role === "IT Support") { %>
+              <button class="btn btn-sm btn-outline-danger">
+                Close Ticket
+              </button>
+              <% } %>
             </div>
           </div>
         </div>
 
         <!-- activity on ticket -->
-
-        <% if(user.role==="IT Support"){ %>
-        <div class="container mt-5">
-          <div
-            class="card shadow-lg"
-            style="
-              border-radius: 15px;
-              background: rgba(255, 255, 255, 0.8);
-              backdrop-filter: blur(10px);
-            "
-          >
-            <div
-              class="card-header bg-info text-white"
-              style="border-radius: 15px 15px 0 0"
-            >
-              <h3 class="mb-0">Add Comment</h3>
+        <% if (user.role === "IT Support") { %>
+        <div class="container mt-4">
+          <div class="card shadow mb-4">
+            <div class="card-header bg-info text-white">
+              <h2 class="mb-0">Add Comment</h2>
             </div>
             <div class="card-body">
               <form action="/comment/<%= ticket.id %>" method="POST">
@@ -97,15 +85,10 @@
                     rows="4"
                     placeholder="Write your comment here..."
                     required
-                    style="border-radius: 10px"
                   ></textarea>
                 </div>
                 <div class="text-end">
-                  <button
-                    type="submit"
-                    class="btn btn-success"
-                    style="border-radius: 10px"
-                  >
+                  <button type="submit" class="btn btn-success">
                     Post Comment
                   </button>
                 </div>
@@ -116,26 +99,23 @@
         <% } %>
 
         <!-- show activity for the ticket -->
-        <div class="container mt-5">
-          <h3>Comments</h3>
-          <% for(let activity of activities) { %>
-          <div class="card mb-3 shadow-sm border-0">
+        <div class="container mt-4">
+          <h2>Comments</h2>
+          <% for (let activity of activities) { %>
+          <div class="card shadow mb-4">
             <div class="card-body">
-              <div
-                class="d-flex justify-content-between align-items-center mb-3"
-              >
+              <div class="d-flex justify-content-between align-items-center">
                 <div>
                   <h5 class="card-title mb-0">John Doe</h5>
                   <h6 class="card-subtitle text-muted">Posted on</h6>
                 </div>
-                <% if(user.role==="IT Support"){ %>
-                <div class="btn-group">
+                <% if (user.role === "IT Support") { %>
+                <div>
                   <a
-                    href="/delete_comment/<%=activity.id%>"
+                    href="/delete_comment/<%= activity.id %>"
                     class="btn btn-sm btn-outline-danger"
+                    >Delete</a
                   >
-                    Delete
-                  </a>
                 </div>
                 <% } %>
               </div>
@@ -149,8 +129,10 @@
   </div>
 </div>
 
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-  crossorigin="anonymous"
-></script>
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

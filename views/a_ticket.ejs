@@ -4,49 +4,55 @@
 <div class="col-10" id="main-content">
   <main class="container">
     <div class="d-flex justify-content-between align-items-center py-4">
-      <h1 class="mb-0">Welcome: <%= user.name %></h1>
+      <h1 class="mb-0">Welcome, <%= user.name %></h1>
       <!-- Add a logout button here if needed -->
     </div>
     <div class="container-fluid">
       <% for (let a_ticket of a_tickets) { %>
-      <div class="card shadow-lg mb-4" style="border-top: 3px solid #0d6efd">
-        <div class="card-header bg-primary text-white">
+      <div
+        class="card shadow-sm mb-4 border-0"
+        style="border-top: 3px solid #0d6efd"
+      >
+        <div class="card-header bg-light text-dark">
           <h5 class="card-title mb-0">
-            #<%= a_ticket.id %> - <%= a_ticket.title %>
+            <span class="text-primary">#<%= a_ticket.id %></span> - <%=
+            a_ticket.title %>
           </h5>
         </div>
         <div class="card-body">
-          <p class="card-text"><%= a_ticket.description %></p>
-          <ul class="list-group list-group-flush mb-3">
-            <li class="list-group-item">
+          <p class="card-text text-muted"><%= a_ticket.description %></p>
+          <div class="row mb-3">
+            <div class="col-md-3">
               <strong>Priority:</strong>
-              <span class="badge bg-danger"><%= a_ticket.priority %></span>
-            </li>
-            <li class="list-group-item">
+              <span class="badge badge-danger"><%= a_ticket.priority %></span>
+            </div>
+            <div class="col-md-3">
               <strong>Category:</strong> <%= a_ticket.category %>
-            </li>
-            <li class="list-group-item">
+            </div>
+            <div class="col-md-3">
               <strong>Assigned To:</strong> <%= a_ticket.assignedto %>
-            </li>
-            <li class="list-group-item">
+            </div>
+            <div class="col-md-3">
               <strong>Incident For:</strong> <%= a_ticket.incidentfor %>
-            </li>
-          </ul>
+            </div>
+          </div>
           <div class="d-flex justify-content-between align-items-center">
             <div class="btn-group">
               <a
                 href="/update/<%= a_ticket.id %>"
-                class="btn btn-sm btn-primary"
+                class="btn btn-sm btn-outline-primary"
                 >Update</a
               >
               <a
                 href="/view/<%= a_ticket.id %>"
-                class="btn btn-sm btn-secondary"
+                class="btn btn-sm btn-outline-secondary"
                 >View More</a
               >
             </div>
             <% if (user.role === "IT Support") { %>
-            <a href="/delete/<%= a_ticket.id %>" class="btn btn-sm btn-danger"
+            <a
+              href="/delete/<%= a_ticket.id %>"
+              class="btn btn-sm btn-outline-danger"
               >Delete</a
             >
             <% } %>

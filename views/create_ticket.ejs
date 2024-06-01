@@ -9,86 +9,98 @@
     <!-- Main Content Column (70%) -->
     <div class="col-10" id="main-content">
       <main class="container">
-        <H1>This ticket creating form</H1>
+        <h1 class="mt-4 mb-3">Ticket Creation Form</h1>
 
         <!-- Ticket Creation Form -->
-        <div class="container">
-          <h2 class="mb-4">Create Ticket</h2>
-          <form action="/create" method="POST">
-            <div class="mb-3">
-              <label for="title" class="form-label">Title</label>
-              <input
-                type="text"
-                class="form-control"
-                id="title"
-                name="title"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="description" class="form-label">Description</label>
-              <textarea
-                class="form-control"
-                id="description"
-                name="description"
-                rows="3"
-                required
-              ></textarea>
-            </div>
-            <div class="row mb-3">
-              <div class="col-md-6">
-                <label for="priority" class="form-label">Priority</label>
-                <select
-                  class="form-select"
-                  id="priority"
-                  name="priority"
+        <div class="card shadow mb-4">
+          <div class="card-header bg-white text-dark">
+            <h2 class="mb-0">Create Ticket</h2>
+          </div>
+          <div class="card-body">
+            <form action="/create" method="POST">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  name="title"
                   required
-                >
-                  <option value="" selected disabled>Select Priority</option>
-                  <option value="Low">Low</option>
-                  <option value="Medium">Medium</option>
-                  <option value="High">High</option>
+                />
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea
+                  class="form-control"
+                  id="description"
+                  name="description"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="priority" class="form-label">Priority</label>
+                  <select
+                    class="form-select"
+                    id="priority"
+                    name="priority"
+                    required
+                  >
+                    <option value="" selected disabled>Select Priority</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="category" class="form-label">Category</label>
+                  <select
+                    class="form-select"
+                    id="category"
+                    name="category"
+                    required
+                  >
+                    <option value="" selected disabled>Select Category</option>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Software">Software</option>
+                    <option value="Network">Network</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="assignedto" class="form-label">Assigned To</label>
+                <select class="form-select" id="assignedto" name="assignedto">
+                  <option value="" selected disabled>Assigned to</option>
+                  <% for(let user of ITUser) { %>
+                  <option value="<%= user.name %>"><%= user.name %></option>
+                  <% } %>
                 </select>
               </div>
-              <div class="col-md-6">
-                <label for="category" class="form-label">Category</label>
-                <select
-                  class="form-select"
-                  id="category"
-                  name="category"
-                  required
+              <div class="mb-3">
+                <label for="incident_for" class="form-label"
+                  >Incident For</label
                 >
-                  <option value="" selected disabled>Select Category</option>
-                  <option value="Hardware">Hardware</option>
-                  <option value="Software">Software</option>
-                  <option value="Network">Network</option>
-                </select>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="incident_for"
+                  name="incidentfor"
+                  required
+                />
               </div>
-            </div>
-            <div class="mb-3">
-              <label for="assignedto" class="form-label">Assigned To</label>
-              <select class="form-select" id="assignedto" name="assignedto">
-                <option value="" selected disabled>Assigned to</option>
-
-                <% for(let user of ITUser) {%>
-                <option value="<%=user.name %>"><%=user.name %></option>
-                <% } %>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="incident_for" class="form-label">Incident For</label>
-              <input
-                type="text"
-                class="form-control"
-                id="incident_for"
-                name="incidentfor"
-                required
-              />
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
       </main>
     </div>
   </div>
 </div>
+
+<link
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
